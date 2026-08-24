@@ -1,6 +1,7 @@
 import { useLayoutEffect } from "react"
 import { useTexture } from "@react-three/drei"
 import { SRGBColorSpace } from "three"
+import { textureUrl } from "../lib/assets"
 
 type CutoutProps = {
   url: string
@@ -13,7 +14,7 @@ export function Cutout({
   width,
   height,
 }: CutoutProps) {
-  const texture = useTexture(url)
+  const texture = useTexture(textureUrl(url))
 
   useLayoutEffect(() => {
     texture.colorSpace = SRGBColorSpace

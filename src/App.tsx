@@ -6,6 +6,7 @@ import { DeveloperType } from "./overlay/DeveloperType"
 import { PaperGrain } from "./overlay/PaperGrain"
 import { useExperience } from "./store/experience"
 import { bootTheatreStudio } from "./theatre/sheet"
+import { textureUrl } from "./lib/assets"
 
 export default function App() {
   const webglOk = useExperience((s) => s.webglOk)
@@ -43,7 +44,7 @@ export default function App() {
           </CanvasGuard>
         ) : (
           <div className="fallback-stage">
-            <img src="/textures/bust.jpg" alt="" />
+            <img src={textureUrl("/textures/bust.jpg")} alt="" />
           </div>
         )}
         <DeveloperType />

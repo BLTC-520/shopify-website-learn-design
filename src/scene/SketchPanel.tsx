@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { useTexture } from "@react-three/drei"
 import { Quaternion, SRGBColorSpace, Vector3, type Group } from "three"
 import type { PaperJourney } from "../data/paperJourney"
+import { textureUrl } from "../lib/assets"
 import { easeInOutCubic, easeOutBack, lerp, smoothstep } from "../lib/math"
 import { scroll, view } from "../lib/scroll"
 import { useExperience } from "../store/experience"
@@ -27,7 +28,7 @@ function createPose(journey: PaperJourney) {
 
 export function SketchPanel({ journey }: { journey: PaperJourney }) {
   const { config } = journey
-  const texture = useTexture(config.texture)
+  const texture = useTexture(textureUrl(config.texture))
   const [w, h] = config.size
   const root = useRef<Group>(null)
   const floater = useRef<Group>(null)

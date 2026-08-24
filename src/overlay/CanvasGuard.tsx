@@ -1,4 +1,5 @@
 import { Component, type ReactNode } from "react"
+import { textureUrl } from "../lib/assets"
 
 type Props = { children: ReactNode }
 type State = { failed: boolean }
@@ -14,7 +15,7 @@ export class CanvasGuard extends Component<Props, State> {
     if (this.state.failed) {
       return (
         <div className="fallback-stage">
-          <img src="/textures/bust.jpg" alt="" />
+          <img src={textureUrl("/textures/bust.jpg")} alt="" />
         </div>
       )
     }
