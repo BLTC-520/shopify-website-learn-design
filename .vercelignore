@@ -1,0 +1,8 @@
+node_modules
+dist
+.DS_Store
+recreation*.png
+references
+*.local
+.oxlintrc.json
+tsconfig.tsbuildinfo
