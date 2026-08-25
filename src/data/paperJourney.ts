@@ -2,7 +2,9 @@ import { Euler, Quaternion, Vector3 } from "three"
 import { sketchPanels, type SketchPanelConfig } from "./panels"
 
 export const CUBE_EDGE = 1.34
-const CUBE_HALF = CUBE_EDGE * 0.5
+export const CUBE_HALF = CUBE_EDGE * 0.5
+export const PALAZZO_ID = "p13"
+export const PALAZZO_DOOR = { u: 0.5, vFromTop: 0.642 }
 const WALL: [number, number, number] = [-0.28, 0.18, 0]
 
 const FACE_ROT: [number, number, number][] = [
@@ -29,12 +31,16 @@ export type PaperPose = {
   scale: [number, number, number]
 }
 
+export type FolioRole = "main" | "leaf" | "fade"
+
 export type PaperJourney = {
   id: string
   config: SketchPanelConfig
   rest: PaperPose
   scatter: PaperPose
   cube: PaperPose
+  folio: PaperPose
+  folioRole: FolioRole
   delay: number
 }
 
@@ -114,6 +120,23 @@ export const paperJourneys: PaperJourney[] = sketchPanels.map((config, i) => {
     cubeScale = [s, s, 1]
   }
 
+  let folioRole: FolioRole
+  let folioPos: [number, number, number]
+  let folioRot: [number, number, number]
+  let folioScale: [number, number, number]
+  if (config.id === "p13") {
+    folioRole = "main"
+    folioPos = [0, 0.05, CUBE_HALF + 0.02]
+    folioRot = [0, 0, 0]
+    const s = (CUBE_EDGE * 1.42) / Math.max(w, h)
+    folioScale = [s, s, 1]
+  } else {
+    folioRole = "fade"
+    folioPos = [cubePos[0] * 2.35, cubePos[1] * 2.35, cubePos[2] * 2.2 - 0.5]
+    folioRot = FACE_ROT[face]
+    folioScale = [cubeScale[0] * 0.38, cubeScale[1] * 0.38, 1]
+  }
+
   return {
     id: config.id,
     config,
@@ -132,6 +155,12 @@ export const paperJourneys: PaperJourney[] = sketchPanels.map((config, i) => {
       quaternion: quatFromEuler(FACE_ROT[face], twist),
       scale: cubeScale,
     },
+    folio: {
+      position: folioPos,
+      quaternion: quatFromEuler(folioRot),
+      scale: folioScale,
+    },
+    folioRole,
     delay: i * 0.01,
   }
 })

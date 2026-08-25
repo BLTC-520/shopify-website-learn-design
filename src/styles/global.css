@@ -29,6 +29,11 @@
   --z-canvas: 0;
   --z-type: 20;
   --z-grain: 30;
+  --intro-scrim: 0;
+  --intro-h: 0;
+  --intro-hy: 18px;
+  --intro-p: 0;
+  --intro-py: 18px;
 }
 
 *,
@@ -57,13 +62,13 @@ body {
 
 #developer {
   position: relative;
-  height: 440vh;
+  height: 860vh;
   width: 100%;
   background: var(--paper);
 }
 
 #developer.is-reduced {
-  height: 100dvh;
+  height: auto;
 }
 
 .stage {
@@ -130,6 +135,65 @@ body {
   padding-bottom: 0.2em;
 }
 
+.folio-intro {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-type);
+  height: 100dvh;
+  width: 100%;
+  margin-top: -100dvh;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12px 12px 14vh;
+  isolation: isolate;
+}
+
+.folio-intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--intro-scrim, 0);
+  background: linear-gradient(
+    to top,
+    rgb(220 220 208 / 0.9) 0%,
+    rgb(220 220 208 / 0.38) 30%,
+    transparent 54%
+  );
+}
+
+.folio-intro h2 {
+  position: relative;
+  margin: 0;
+  font-family: Satoshi, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 10.4vw, 56px);
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  color: var(--ink);
+  opacity: var(--intro-h, 0);
+  transform: translate3d(0, var(--intro-hy, 18px), 0);
+}
+
+.folio-intro p {
+  position: relative;
+  margin: 0.18em 0 0;
+  max-width: 15.5em;
+  font-family: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: -0.04em;
+  line-height: 1.18;
+  color: var(--ink);
+  padding-bottom: 0.22em;
+  opacity: var(--intro-p, 0);
+  transform: translate3d(0, var(--intro-py, 18px), 0);
+}
+
 .paper-grain {
   position: fixed;
   inset: 0;
@@ -178,5 +242,46 @@ body {
   .type-overlay p {
     font-size: clamp(28px, 3.05vw, 44px);
     max-width: 18.2em;
+  }
+
+  .folio-intro {
+    padding: 0 70px 12vh;
+  }
+
+  .folio-intro h2 {
+    font-size: clamp(56px, 6.4vw, 96px);
+  }
+
+  .folio-intro p {
+    font-size: clamp(24px, 2.35vw, 34px);
+    max-width: 18em;
+  }
+}
+
+#developer.is-reduced .stage {
+  position: relative;
+  height: 100dvh;
+}
+
+#developer.is-reduced .folio-intro {
+  position: relative;
+  height: auto;
+  margin-top: 0;
+  padding: 10vh 12px 18vh;
+}
+
+#developer.is-reduced .folio-intro::before {
+  opacity: 0;
+}
+
+#developer.is-reduced .folio-intro h2,
+#developer.is-reduced .folio-intro p {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 768px) {
+  #developer.is-reduced .folio-intro {
+    padding: 12vh 70px 20vh;
   }
 }

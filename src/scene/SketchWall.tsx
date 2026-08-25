@@ -6,7 +6,10 @@ import { CubeCore } from "./CubeCore"
 import { SketchPanel } from "./SketchPanel"
 
 export function SketchWall() {
-  useTexture(sketchPanels.map((panel) => textureUrl(panel.texture)))
+  useTexture([
+    ...sketchPanels.map((panel) => textureUrl(panel.texture)),
+    textureUrl("/textures/sketches/gen-04-doors.png"),
+  ])
 
   return (
     <group>

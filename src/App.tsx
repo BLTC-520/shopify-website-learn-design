@@ -3,6 +3,7 @@ import { Leva } from "leva"
 import { CanvasRoot } from "./scene/CanvasRoot"
 import { CanvasGuard } from "./overlay/CanvasGuard"
 import { DeveloperType } from "./overlay/DeveloperType"
+import { FolioIntro } from "./overlay/FolioIntro"
 import { PaperGrain } from "./overlay/PaperGrain"
 import { useExperience } from "./store/experience"
 import { bootTheatreStudio } from "./theatre/sheet"
@@ -49,6 +50,7 @@ export default function App() {
         )}
         <DeveloperType />
       </div>
+      <FolioIntro />
       <PaperGrain />
     </section>
   )

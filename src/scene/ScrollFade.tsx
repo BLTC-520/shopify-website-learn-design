@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { Mesh, type Group, type MeshBasicMaterial } from "three"
 import { lerp, smoothstep } from "../lib/math"
 import { scroll } from "../lib/scroll"
+import { assembleP } from "../lib/timeline"
 import { useExperience } from "../store/experience"
 
 type ScrollFadeProps = {
@@ -18,7 +19,7 @@ export function ScrollFade({ children, from = 0.06, to = 0.3 }: ScrollFadeProps)
   useFrame(() => {
     const group = ref.current
     if (!group) return
-    const amount = reducedMotion ? 1 : 1 - smoothstep(from, to, scroll.current)
+    const amount = reducedMotion ? 1 : 1 - smoothstep(from, to, assembleP(scroll.current))
     group.visible = amount > 0.02
     group.scale.setScalar(lerp(0.86, 1, amount))
     group.traverse((obj) => {
